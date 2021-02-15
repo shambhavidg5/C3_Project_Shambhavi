@@ -75,4 +75,19 @@ class RestaurantTest {
                 ()->restaurant.removeFromMenu("French fries"));
     }
     //<<<<<<<<<<<<<<<<<<<<<<<MENU>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    @Test
+    public void get_order_total_value_should_return_sum_of_prices_if_menu_is_passed() throws itemNotFoundException {
+        restaurant =new Restaurant("Amelie's cafe","Chennai",openingTime,closingTime);
+        restaurant.addToMenu("Sweet corn soup",10);
+        restaurant.addToMenu("Vegetable lasagne", 20);
+        assertEquals(30,restaurant.getOrderTotalValue(restaurant.getMenu()));
+
+    }
+
+    @Test
+    public void get_order_total_value_should_throw_exception_for_empty_cart(){
+        int initialMenuSize = restaurant.getMenu().size();
+
+    }
 }

@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class Item {
     private String name;
     private int price;
@@ -21,5 +23,14 @@ public class Item {
                 + price
                 + "\n"
                 ;
+    }
+
+
+    public int getOrderTotalValue(List<Item> menu) throws itemNotFoundException {
+        int orderTotal = 0;
+        for(Item item : menu) {
+            orderTotal += orderTotal + item.getPrice();
+        }
+        return orderTotal ;
     }
 }

@@ -63,7 +63,7 @@ class RestaurantServiceTest {
 
     @Test
     public void add_restaurant_should_increase_list_of_restaurants_size_by_1(){
-       
+
         restaurant = service.addRestaurant("Amelie's cafe","Chennai",openingTime,closingTime);
         restaurant.addToMenu("Sweet corn soup",119);
         restaurant.addToMenu("Vegetable lasagne", 269);
