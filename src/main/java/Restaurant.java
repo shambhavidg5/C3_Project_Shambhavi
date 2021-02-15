@@ -19,16 +19,16 @@ public class Restaurant {
     }
 
     public boolean isRestaurantOpen() {
-        //System.out.println(getCurrentTime());
-        openingTime = LocalTime.parse("10:00:00.200113800");
-        closingTime = LocalTime.parse("19:00:00.200113800");
+
         if(getCurrentTime().isAfter(openingTime) && getCurrentTime().isBefore(closingTime)){
             return true;
         }
       return false;
     }
 
-    public LocalTime getCurrentTime(){ return  LocalTime.now(); }
+    public LocalTime getCurrentTime(){
+        return  LocalTime.now();
+    }
 
     public List<Item> getMenu() {
         if(isRestaurantOpen()){
