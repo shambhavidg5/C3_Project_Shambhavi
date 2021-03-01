@@ -8,10 +8,10 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalTime;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class RestaurantTest {
@@ -19,10 +19,7 @@ class RestaurantTest {
     Restaurant restaurant = Mockito.mock(Restaurant.class) ;
     LocalTime openingTime = LocalTime.parse("10:30:00");
     LocalTime closingTime = LocalTime.parse("22:00:00");
-
-    //Restaurant restaurant = new Restaurant("Amelie's Cafe" , "Paris" , openingTime,closingTime);
-    //private Restaurant rest;
-    //REFACTOR ALL THE REPEATED LINES OF CODE
+    private Object itemNotFoundException;
 
     //>>>>>>>>>>>>>>>>>>>>>>>>>OPEN/CLOSED<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     //-------FOR THE 2 TESTS BELOW, YOU MAY USE THE CONCEPT OF MOCKING, IF YOU RUN INTO ANY TROUBLE
@@ -91,16 +88,25 @@ class RestaurantTest {
 
     @Test
     public void get_order_total_value_should_return_sum_of_prices_if_menu_is_passed() throws itemNotFoundException {
+        LocalTime currentTime = LocalTime.parse("12:00:00");
+        Mockito.when(restaurant.isRestaurantOpen()).thenReturn(true) ;
+        Mockito.when(restaurant.getCurrentTime()).thenReturn(currentTime);
         restaurant =new Restaurant("Amelie's cafe","Chennai",openingTime,closingTime);
         restaurant.addToMenu("Sweet corn soup",10);
         restaurant.addToMenu("Vegetable lasagne", 20);
-        assertEquals(30,restaurant.getOrderTotalValue(restaurant.getMenu()));
+        List<Item> menulist = restaurant.getMenu();
+        assertEquals(30,restaurant.getOrderTotalValue(menulist));
 
     }
 
     @Test
-    public void get_order_total_value_should_throw_exception_for_empty_cart(){
-        int initialMenuSize = restaurant.getMenu().size();
+    public void get_order_total_value_should_throw_exception_for_empty_cart() throws itemNotFoundException {
+        LocalTime currentTime = LocalTime.parse("12:00:00");
+        Mockito.when(restaurant.isRestaurantOpen()).thenReturn(true) ;
+        Mockito.when(restaurant.getCurrentTime()).thenReturn(currentTime);
+        restaurant =new Restaurant("Amelie's cafe","Chennai",openingTime,closingTime);
 
+        List<Item> menulist = restaurant.getMenu();
+        assertEquals(itemNotFoundException.toString(),restaurant.getOrderTotalValue(menulist));
     }
 }

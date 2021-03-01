@@ -31,10 +31,7 @@ public class Restaurant {
     }
 
     public List<Item> getMenu() {
-        if(isRestaurantOpen()){
-            return menu;
-        }
-        return null;
+        return menu;
     }
 
     private Item findItemByName(String itemName){
@@ -73,8 +70,10 @@ public class Restaurant {
 
     public int getOrderTotalValue(List<Item> menu) throws itemNotFoundException {
         int orderTotal = 0;
-        for(Item item : menu) {
-            orderTotal += orderTotal + item.getPrice();
+        if (menu.size() != 0) {
+            for (Item item : menu) {
+                orderTotal = orderTotal + item.getPrice();
+            }
         }
         return orderTotal ;
     }
