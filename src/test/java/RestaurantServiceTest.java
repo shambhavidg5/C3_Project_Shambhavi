@@ -20,9 +20,9 @@ class RestaurantServiceTest {
 
         restaurant = service.addRestaurant("Amelie's cafe","Chennai",openingTime,closingTime);
 
-        assertThrows(restaurantNotFoundException.class,()->{
-            service.findRestaurantByName("Amelie's cafe");
-        });
+        for(Restaurant restToFind : service.getRestaurants()){
+            assertEquals(true,service.findRestaurantByName("Amelie's cafe").equals(restToFind)) ;
+        }
     }
 
     //You may watch the video by Muthukumaran on how to write exceptions in Course 3: Testing and Version control: Optional content

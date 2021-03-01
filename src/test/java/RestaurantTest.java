@@ -1,18 +1,27 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalTime;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class RestaurantTest {
-    Restaurant restaurant;
+
+    Restaurant restaurant = Mockito.mock(Restaurant.class) ;
     LocalTime openingTime = LocalTime.parse("10:30:00");
     LocalTime closingTime = LocalTime.parse("22:00:00");
+
+    //Restaurant restaurant = new Restaurant("Amelie's Cafe" , "Paris" , openingTime,closingTime);
+    //private Restaurant rest;
     //REFACTOR ALL THE REPEATED LINES OF CODE
 
     //>>>>>>>>>>>>>>>>>>>>>>>>>OPEN/CLOSED<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -21,21 +30,25 @@ class RestaurantTest {
     public void is_restaurant_open_should_return_true_if_time_is_between_opening_and_closing_time(){
 
         LocalTime currentTime = LocalTime.parse("12:00:00");
+        Mockito.when(restaurant.getCurrentTime()).thenReturn(currentTime);
 
-        restaurant =new Restaurant("Amelie's cafe","Chennai",openingTime,closingTime);
-        Boolean open = restaurant.isRestaurantOpen() ;
-        assertEquals(true, open);
+        restaurant.openingTime = LocalTime.parse("10:30:00");
+        restaurant.closingTime = LocalTime.parse("22:00:00");
+
+        Mockito.when(restaurant.isRestaurantOpen()).thenReturn(true) ;
 
     }
 
     @Test
     public void is_restaurant_open_should_return_false_if_time_is_outside_opening_and_closing_time(){
 
-        LocalTime currentTime = LocalTime.parse("23:00:00");
+        LocalTime currentTime = LocalTime.parse("06:00:00");
+        Mockito.when(restaurant.getCurrentTime()).thenReturn(currentTime);
 
-        restaurant =new Restaurant("Amelie's cafe","Chennai",openingTime,closingTime);
-        Boolean open = restaurant.isRestaurantOpen() ;
-        assertEquals(false, open);
+        restaurant.openingTime = LocalTime.parse("10:30:00");
+        restaurant.closingTime = LocalTime.parse("22:00:00");
+
+        Mockito.when(restaurant.isRestaurantOpen()).thenReturn(false) ;
     }
 
     //<<<<<<<<<<<<<<<<<<<<<<<<<OPEN/CLOSED>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
